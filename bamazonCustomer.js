@@ -34,8 +34,6 @@ var productList = function() {
 };
 
 function productQuant(answer, newUnits) {
-  console.log(answer);
-  console.log(newUnits);
   connection.query("UPDATE products SET stock_quantity=? WHERE item_id=\"?\"", [newUnits, answer.itemId], function(err, res) {
       if (err) throw err;
       console.log("Units added!");
@@ -74,8 +72,6 @@ var runBamazon = function() {
           if (answer.units <= res[i].stock_quantity) {
             //console.log those specific products
             var totalPrice = answer.units * res[i].price;
-            // console.log(res[i].price);
-            // console.log(totalPrice);
             var newUnits = res[i].stock_quantity - answer.units;
             productQuant(answer, newUnits);
             console.log("You just bought " + answer.units + " " + res[i].product_name + "!" + " That cost you $" + totalPrice + ".");
